@@ -21,18 +21,20 @@ unsigned numberOfOutputs = 1;
 unsigned numberOfInputs = (unsigned)instances[0].size() - numberOfOutputs;
 
 Network::TransferFunction transferFunction = Network::hyperbolicTangent;
-std::vector<unsigned> topology = {numberOfInputs,2,numberOfOutputs};
+std::vector<unsigned> topology = {numberOfInputs,3,numberOfOutputs};
 
 std::vector<Chromosome *> chromosomes;
-unsigned populationSize = 1000;
-unsigned numberOfGenerations = 1000;
-double elitePercentage = 0.05;
+unsigned populationSize = 10000;
+unsigned numberOfGenerations = 20;
+double elitePercentage = 0.1;
 unsigned elitePopulationSize = unsigned(elitePercentage * populationSize);
 unsigned offspringPopulationSize = populationSize - elitePopulationSize;
 double survivingPercentage = 0.1;
 unsigned survivingPopulationSize = unsigned(survivingPercentage * populationSize);
 double crossoverProbability = 0.5;
-double mutationProbability = 0.01;
+double mutationProbability = 0.1;
+double mutationDecrement = mutationProbability/numberOfGenerations;
+double probabilityIncrement = 0.1;
 
 // Other
 
@@ -108,6 +110,9 @@ void GeneticAlgorithm::processGeneration(){
     chromosomes.clear();
     chromosomes.insert(chromosomes.end(), eliteChromosomes.begin(), eliteChromosomes.end());
     chromosomes.insert(chromosomes.end(), offspringChromosomes.begin(), offspringChromosomes.end());
+    
+    // Decrement Mutation Probability
+    mutationProbability -= mutationDecrement;
 }
 
 void GeneticAlgorithm:: calculatePopulationFitnessValuesAndProbabilities(){
@@ -130,7 +135,7 @@ void GeneticAlgorithm:: calculatePopulationFitnessValuesAndProbabilities(){
 
 double GeneticAlgorithm::calculateChromosomeFitness(Chromosome *chromosome){
     
-    double sumOfErrors = 0;
+    double sumOfAccuracies = 0;
     
     for (unsigned i = 0; i < instances.size(); ++i){
         
@@ -159,13 +164,16 @@ double GeneticAlgorithm::calculateChromosomeFitness(Chromosome *chromosome){
         // Error
         double error = abs(targetValues[0] - outputs[0]);
         
-        // Add All Errors
-        sumOfErrors += error;
+        // Accuracy
+        double accuracy = 1 - error;
+        
+        // Add All Accuracies
+        sumOfAccuracies += accuracy;
     }
     
-    // Set Fitness: Max fitness value is the total number of instances
-    double maxFitnessValue = instances.size();
-    chromosome->setFitnessValue(maxFitnessValue - sumOfErrors);
+    // Set Fitness: Average Accuracy
+    double averageAccuracy = sumOfAccuracies/instances.size();
+    chromosome->setFitnessValue(averageAccuracy);
     
     return chromosome->fitnessValue;
 }
@@ -211,6 +219,10 @@ std::vector<Chromosome *> GeneticAlgorithm::selectSurvivingPopulation(){
                     didReachDesiredSize = true;
                     break;
                 }
+            }
+            else{
+                // Increase chromosomes probability
+                chromosome->probability *= (1 + probabilityIncrement);
             }
         }
         

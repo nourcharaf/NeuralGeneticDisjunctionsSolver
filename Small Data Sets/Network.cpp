@@ -94,7 +94,7 @@ void Network::setRandomEdgeWeights(){
 }
 
 double Network::randomWeight(){
-    return ((rand()/double(RAND_MAX)) * 2) - 1;
+    return ((rand()/double(RAND_MAX)) * 2000) - 1000; // (rand()/double(RAND_MAX)); ((rand()/double(RAND_MAX)) * 2) - 1;
 }
 
 void Network::setEdgeWeights(std::vector<double>weights){
@@ -102,7 +102,7 @@ void Network::setEdgeWeights(std::vector<double>weights){
     unsigned l = 0;
     
     for (unsigned i = 0; i < layers.size(); ++i){
-
+        
         Layer *layer = layers[i];
 
         for (unsigned j = 0; j < layer->nodes.size(); ++j){

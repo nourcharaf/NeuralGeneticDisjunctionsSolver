@@ -11,7 +11,8 @@
 
 #include "GeneticAlgorithm.hpp"
 
-void startGeneticAlgorithm();
+#include "DataManager.hpp"
+
 void printArray(std::vector<double> array);
 
 int main() {
@@ -20,60 +21,48 @@ int main() {
     srand((int)time(NULL));
     
     // Genetic Algorithm
-    
-    startGeneticAlgorithm();
+
+//    GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm();
+//    geneticAlgorithm->createChromosomes();
+//    geneticAlgorithm->processGenerations();
+//    Network *bestNetwork = geneticAlgorithm->getBestChromosome()->network;
+//    printArray(bestNetwork->getEdgeWeights());
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    std::vector<double> bestWeights = {0.987153,0.987153,0.45136,0.987153,0.987153,0.987153,0.45136,0.45136,0.987153,0.987153,-0.0842198,0.987153,0.987153,-0.833931,0.45136};
+    std::vector<double> bestWeights = {-851.126,-851.126,704.56,-851.126,-851.126,-851.126,542.599,-851.126,704.56,704.56,-851.126,704.56,-851.126,704.56,-877.021,260.225,-851.126,-851.126,-851.126,-851.126,-851.126,-851.126,-851.126,704.56};
     Chromosome *chromosome = new Chromosome();
     Network *network = GeneticAlgorithm::createNetwork();
     chromosome->network = network;
     network->setEdgeWeights(bestWeights);
     
-    std::vector<double> inputValues;
     std::vector<double> outputs;
     
-    inputValues = {1,1};
-    
-    chromosome->network->feedForward(inputValues);
-    
+    chromosome->network->feedForward({1,1,1}); // 1
     outputs = network->getOutputs();
     
-    inputValues = {1,0};
-    
-    chromosome->network->feedForward(inputValues);
-    
+    chromosome->network->feedForward({1,1,0}); // 0
     outputs = network->getOutputs();
     
-    inputValues = {0,1};
-    
-    chromosome->network->feedForward(inputValues);
-    
+    chromosome->network->feedForward({1,0,1}); // 0
     outputs = network->getOutputs();
     
-    inputValues = {0,0};
+    chromosome->network->feedForward({1,0,0}); // 1
+    outputs = network->getOutputs();
     
-    chromosome->network->feedForward(inputValues);
+    chromosome->network->feedForward({0,1,1}); // 0
+    outputs = network->getOutputs();
     
+    chromosome->network->feedForward({0,1,0}); // 1
+    outputs = network->getOutputs();
+    
+    chromosome->network->feedForward({0,0,1}); // 1
+    outputs = network->getOutputs();
+    
+    chromosome->network->feedForward({0,0,0}); // 0
     outputs = network->getOutputs();
     
     return 0;
-}
-
-void startGeneticAlgorithm(){
-    
-    GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm();
-    
-    geneticAlgorithm->createChromosomes();
-    
-    geneticAlgorithm->processGenerations();
-    
-    Chromosome *bestChromosome = geneticAlgorithm->getBestChromosome();
-    
-    Network *bestNetwork = bestChromosome->network;
-    
-    printArray(bestNetwork->getEdgeWeights());
 }
 
 void printArray(std::vector<double> array){

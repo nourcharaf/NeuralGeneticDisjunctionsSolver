@@ -24,10 +24,11 @@ void DataManager::generateXORData(std::string fileName,unsigned instances){
         
         int x1 = rand()/double(RAND_MAX) + 0.5;
         int x2 = rand()/double(RAND_MAX) + 0.5;
+        int x3 = rand()/double(RAND_MAX) + 0.5;
         
         int output = x1 != x2;
         
-        file << std::to_string(x1) + "," + std::to_string(x2) + "," + std::to_string(output) + "\n";
+        file << std::to_string(x1) + "," + std::to_string(x2) + "," + std::to_string(x3) + "," + std::to_string(output) + "\n";
     }
     
     file.close();

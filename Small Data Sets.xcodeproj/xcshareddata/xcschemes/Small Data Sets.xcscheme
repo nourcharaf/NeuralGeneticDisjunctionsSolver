@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/mohammadnoursharaf/Desktop/Small Data Sets/Small Data Sets"
+      customWorkingDirectory = "/Users/mohammadnoursharaf/Desktop/small-data-sets/Small Data Sets"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
