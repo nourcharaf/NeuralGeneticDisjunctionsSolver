@@ -15,6 +15,7 @@
 		0238865C23A7EFF900ACE9C9 /* Chromosome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0238865A23A7EFF900ACE9C9 /* Chromosome.cpp */; };
 		0238865F23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0238865D23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp */; };
 		0238866223A8CCF500ACE9C9 /* DataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0238866023A8CCF500ACE9C9 /* DataManager.cpp */; };
+		0269C2EA23AA3B67000D7DA0 /* CrossValidation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0269C2E823AA3B67000D7DA0 /* CrossValidation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,8 @@
 		0238865E23A7F1DD00ACE9C9 /* GeneticAlgorithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GeneticAlgorithm.hpp; sourceTree = "<group>"; };
 		0238866023A8CCF500ACE9C9 /* DataManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DataManager.cpp; sourceTree = "<group>"; };
 		0238866123A8CCF500ACE9C9 /* DataManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DataManager.hpp; sourceTree = "<group>"; };
+		0269C2E823AA3B67000D7DA0 /* CrossValidation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CrossValidation.cpp; sourceTree = "<group>"; };
+		0269C2E923AA3B67000D7DA0 /* CrossValidation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CrossValidation.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				0238864323A7DE6C00ACE9C9 /* main.cpp */,
+				0269C2E823AA3B67000D7DA0 /* CrossValidation.cpp */,
+				0269C2E923AA3B67000D7DA0 /* CrossValidation.hpp */,
 				0238865D23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp */,
 				0238865E23A7F1DD00ACE9C9 /* GeneticAlgorithm.hpp */,
 				0238865A23A7EFF900ACE9C9 /* Chromosome.cpp */,
@@ -158,6 +163,7 @@
 				0238864F23A7DEC700ACE9C9 /* Layer.cpp in Sources */,
 				0238864423A7DE6C00ACE9C9 /* main.cpp in Sources */,
 				0238865223A7DEE500ACE9C9 /* Edge.cpp in Sources */,
+				0269C2EA23AA3B67000D7DA0 /* CrossValidation.cpp in Sources */,
 				0238865523A7DF0B00ACE9C9 /* Network.cpp in Sources */,
 				0238865F23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp in Sources */,
 				0238866223A8CCF500ACE9C9 /* DataManager.cpp in Sources */,

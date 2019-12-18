@@ -10,9 +10,6 @@
 
 // Neural Network Parameters
 
-// Instances
-std::vector<std::vector<double>> instances = DataManager::getInstances("xor_data.txt");
-
 // Random Range
 double randomRange = 10;
 
@@ -20,14 +17,14 @@ double randomRange = 10;
 Network::TransferFunction transferFunction = Network::hyperbolicTangent;
 
 // Topology
+unsigned numberOfInputs = 3;
 unsigned numberOfOutputs = 1;
-unsigned numberOfInputs = (unsigned)instances[0].size() - numberOfOutputs;
 std::vector<unsigned> topology = {numberOfInputs,3,numberOfOutputs};
 
 // Genetic Algorithm Parameters
 unsigned populationSize = 1000;
-unsigned numberOfGenerations = 2000;
-double desiredAccuracy = 0.876;
+unsigned numberOfGenerations = 500;
+double desiredAccuracy = 0.9;
 double elitePercentage = 0.1;
 double survivingPercentage = 0.1;
 double crossoverProbability = 0.5;
@@ -40,7 +37,6 @@ unsigned uniformIntDistributionSize = 1000;
 
 std::vector<Chromosome *> chromosomes;
 std::vector<Chromosome *> bestChromosomes;
-Chromosome *bestChromosome;
 unsigned elitePopulationSize = unsigned(elitePercentage * populationSize);
 unsigned offspringPopulationSize = populationSize - elitePopulationSize;
 unsigned survivingPopulationSize = unsigned(survivingPercentage * populationSize);
@@ -382,8 +378,4 @@ void GeneticAlgorithm::printArray(std::vector<double> array){
         
         std::cout << str + ",";
     }
-}
-
-Chromosome * GeneticAlgorithm::getBestChromosome(){
-    return bestChromosome;
 }

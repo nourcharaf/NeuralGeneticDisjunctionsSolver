@@ -18,13 +18,18 @@
 #include <sstream>
 
 #include "Chromosome.hpp"
-#include "DataManager.hpp"
 
 class GeneticAlgorithm{
     
 public:
     
+    unsigned truePositives;
+    unsigned trueNegatives;
+    unsigned falsePositives;
+    unsigned falseNegatives;
     
+    std::vector<std::vector<double>> instances;
+    Chromosome *bestChromosome;
     
     GeneticAlgorithm();
     void createChromosomes();
@@ -43,7 +48,6 @@ public:
     void mutation(std::vector<Chromosome *> offspringChromosomes);
     void logResults(unsigned generationNumber, Chromosome *chromosome);
     void printArray(std::vector<double> array);
-    Chromosome * getBestChromosome();
     
 };
 
