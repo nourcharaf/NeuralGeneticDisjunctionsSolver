@@ -16,6 +16,8 @@
 		0238865F23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0238865D23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp */; };
 		0238866223A8CCF500ACE9C9 /* DataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0238866023A8CCF500ACE9C9 /* DataManager.cpp */; };
 		0269C2EA23AA3B67000D7DA0 /* CrossValidation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0269C2E823AA3B67000D7DA0 /* CrossValidation.cpp */; };
+		0269C2ED23AA6BD0000D7DA0 /* HyperGeneticAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0269C2EB23AA6BD0000D7DA0 /* HyperGeneticAlgorithm.cpp */; };
+		0269C2F023AA6BDD000D7DA0 /* HyperChromosome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0269C2EE23AA6BDD000D7DA0 /* HyperChromosome.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +52,10 @@
 		0238866123A8CCF500ACE9C9 /* DataManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DataManager.hpp; sourceTree = "<group>"; };
 		0269C2E823AA3B67000D7DA0 /* CrossValidation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CrossValidation.cpp; sourceTree = "<group>"; };
 		0269C2E923AA3B67000D7DA0 /* CrossValidation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CrossValidation.hpp; sourceTree = "<group>"; };
+		0269C2EB23AA6BD0000D7DA0 /* HyperGeneticAlgorithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HyperGeneticAlgorithm.cpp; sourceTree = "<group>"; };
+		0269C2EC23AA6BD0000D7DA0 /* HyperGeneticAlgorithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HyperGeneticAlgorithm.hpp; sourceTree = "<group>"; };
+		0269C2EE23AA6BDD000D7DA0 /* HyperChromosome.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HyperChromosome.cpp; sourceTree = "<group>"; };
+		0269C2EF23AA6BDD000D7DA0 /* HyperChromosome.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HyperChromosome.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				0238864323A7DE6C00ACE9C9 /* main.cpp */,
+				0269C2EB23AA6BD0000D7DA0 /* HyperGeneticAlgorithm.cpp */,
+				0269C2EC23AA6BD0000D7DA0 /* HyperGeneticAlgorithm.hpp */,
+				0269C2EE23AA6BDD000D7DA0 /* HyperChromosome.cpp */,
+				0269C2EF23AA6BDD000D7DA0 /* HyperChromosome.hpp */,
 				0269C2E823AA3B67000D7DA0 /* CrossValidation.cpp */,
 				0269C2E923AA3B67000D7DA0 /* CrossValidation.hpp */,
 				0238865D23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp */,
@@ -162,7 +172,9 @@
 			files = (
 				0238864F23A7DEC700ACE9C9 /* Layer.cpp in Sources */,
 				0238864423A7DE6C00ACE9C9 /* main.cpp in Sources */,
+				0269C2ED23AA6BD0000D7DA0 /* HyperGeneticAlgorithm.cpp in Sources */,
 				0238865223A7DEE500ACE9C9 /* Edge.cpp in Sources */,
+				0269C2F023AA6BDD000D7DA0 /* HyperChromosome.cpp in Sources */,
 				0269C2EA23AA3B67000D7DA0 /* CrossValidation.cpp in Sources */,
 				0238865523A7DF0B00ACE9C9 /* Network.cpp in Sources */,
 				0238865F23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp in Sources */,

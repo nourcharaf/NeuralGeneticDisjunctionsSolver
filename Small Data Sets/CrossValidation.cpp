@@ -18,7 +18,24 @@ CrossValidation::CrossValidation(){
     
 }
 
-void CrossValidation::start(){
+void CrossValidation::setRandomRandomRange(){
+    randomRange = int(1 + (rand() % 20));
+}
+
+void CrossValidation::setRandomTransferFunction(){
+    std::vector<Network::TransferFunction> transferFunctions = Network::getTransferFunctions();
+    transferFunction = int(0 + rand() % transferFunctions.size());
+}
+
+void CrossValidation::setRandomNumberOfHiddenLayers(){
+    numberOfHiddenLayers = int(1 + (rand() % 10));
+}
+
+void CrossValidation::setRandomNumberOfHiddenNodes(){
+    numberOfHiddenNodes = int(1 + (rand() % 10));
+}
+
+void CrossValidation::kFoldCrossValidation(){
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -32,16 +49,6 @@ void CrossValidation::start(){
     std::shuffle(std::begin(originalInstances), std::end(originalInstances), randomEngine);
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // K-Fold Cross Validation
-    
-    std::vector<std::vector<double>> kFoldTestingErrors;
-    kFoldCrossValidation();
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-}
-
-void CrossValidation::kFoldCrossValidation(){
     
     std::vector<GeneticAlgorithm *> geneticAlgorithms;
     
@@ -78,6 +85,12 @@ void CrossValidation::kFoldCrossValidation(){
         // Genetic Algorithm
         GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm();
         geneticAlgorithms.push_back(geneticAlgorithm);
+        
+        // Set Hyper Paramters
+        geneticAlgorithm->randomRange = randomRange;
+        geneticAlgorithm->transferFunction = transferFunction;
+        geneticAlgorithm->numberOfHiddenLayers = numberOfHiddenLayers;
+        geneticAlgorithm->numberOfHiddenNodes = numberOfHiddenNodes;
         
         // Training with training instances
         trainWithInstances(geneticAlgorithm, trainingInstances);
@@ -163,23 +176,37 @@ void CrossValidation::testWithInstances(GeneticAlgorithm *geneticAlgorithm, std:
 void CrossValidation::reportFinalResults(std::vector<GeneticAlgorithm *> geneticAlgorithms){
     
     std::vector<double> accuracies;
+    double sumOfAccuracies = 0;
+    
     std::vector<double> fmeasures;
+    double sumeOfFMeasures = 0;
     
     for (unsigned i = 0; i < geneticAlgorithms.size(); ++i){
         
         GeneticAlgorithm *geneticAlgorithm = geneticAlgorithms[i];
         
+        double tP = geneticAlgorithm->truePositives;
+        double tN = geneticAlgorithm->trueNegatives;
+        double fP = geneticAlgorithm->falsePositives;
+        double fN = geneticAlgorithm->falseNegatives;
+        
         // Accuracy
-        double accuracy = (geneticAlgorithm->truePositives + geneticAlgorithm->trueNegatives)/(geneticAlgorithm->truePositives + geneticAlgorithm->trueNegatives + geneticAlgorithm->falsePositives + geneticAlgorithm->falseNegatives);
+        double accuracy = (tP + tN + fP + fN != 0) ? (tP + tN)/(tP + tN + fP + fN) : 0;
+        
         accuracies.push_back(accuracy);
         
+        sumOfAccuracies += accuracy;
+        
         // F-Measure
-        double positivePredictiveValue = geneticAlgorithm->truePositives/(geneticAlgorithm->truePositives + geneticAlgorithm->falsePositives);
+        double positivePredictiveValue = (tP + fP != 0) ? tP/(tP + fP) : 0;
         
-        double sensitivity = geneticAlgorithm->truePositives/(geneticAlgorithm->truePositives + geneticAlgorithm->falseNegatives);
+        double sensitivity = (tP + fN != 0) ? tP/(tP + fN) : 0;
         
-        double fmeasure = (2 * positivePredictiveValue * sensitivity)/(positivePredictiveValue + sensitivity);
+        double fmeasure = (positivePredictiveValue + sensitivity != 0) ? (2 * positivePredictiveValue * sensitivity)/(positivePredictiveValue + sensitivity) : 0;
+        
         fmeasures.push_back(fmeasure);
+        
+        sumeOfFMeasures += fmeasure;
     }
     
     // Print
@@ -187,15 +214,15 @@ void CrossValidation::reportFinalResults(std::vector<GeneticAlgorithm *> genetic
     printArray(accuracies);
     std::cout << std::endl;
     
-    double maxAccuracy = *std::max_element(accuracies.begin(), accuracies.end());
-    std::cout << "Max Accuracy: " + std::to_string(maxAccuracy) << std::endl;
+    averageAccuracy = sumOfAccuracies/crossValidationFolds;
+    std::cout << "Average Accuracy: " + std::to_string(averageAccuracy) << std::endl;
     
     std::cout << "F-Measures: " << std::endl;
     printArray(fmeasures);
     std::cout << std::endl;
     
-    double maxFMeasure = *std::max_element(fmeasures.begin(), fmeasures.end());
-    std::cout << "Max F-Measure: " + std::to_string(maxFMeasure) << std::endl;
+    averageFMeasure = sumeOfFMeasures/crossValidationFolds;
+    std::cout << "Max F-Measure: " + std::to_string(averageFMeasure) << std::endl;
 }
 
 void CrossValidation::printArray(std::vector<double> array){

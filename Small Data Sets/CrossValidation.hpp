@@ -18,8 +18,20 @@ class CrossValidation{
     
 public:
     
+    // Hyper Parameters
+    unsigned randomRange;
+    unsigned transferFunction;
+    unsigned numberOfHiddenLayers;
+    unsigned numberOfHiddenNodes;
+    
+    double averageAccuracy;
+    double averageFMeasure;
+    
     CrossValidation();
-    void start();
+    void setRandomRandomRange();
+    void setRandomTransferFunction();
+    void setRandomNumberOfHiddenLayers();
+    void setRandomNumberOfHiddenNodes();
     void kFoldCrossValidation();
     void trainWithInstances(GeneticAlgorithm *geneticAlgorithm, std::vector<std::vector<double>> instances);
     void testWithInstances(GeneticAlgorithm *geneticAlgorithm, std::vector<std::vector<double>> instances);

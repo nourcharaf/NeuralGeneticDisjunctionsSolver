@@ -23,6 +23,12 @@ class GeneticAlgorithm{
     
 public:
     
+    // Hyper Parameters for Neural Networks
+    unsigned randomRange;
+    unsigned transferFunction;
+    unsigned numberOfHiddenLayers;
+    unsigned numberOfHiddenNodes;
+    
     unsigned truePositives;
     unsigned trueNegatives;
     unsigned falsePositives;

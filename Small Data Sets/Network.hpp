@@ -24,8 +24,10 @@ public:
         fastSigmoid
     };
     
+    static std::vector<TransferFunction> getTransferFunctions();
+    
     double randomRange;
-    TransferFunction transferFunction;
+    unsigned transferFunction;
     std::vector<unsigned> topology;
     std::vector<Layer *> layers;
     

@@ -12,6 +12,10 @@ Network::Network(){
     
 }
 
+std::vector<Network::TransferFunction> Network::getTransferFunctions(){
+    return {hyperbolicTangent,fastSigmoid};
+}
+
 void Network::createLayers(){
     
     // Empty Layers

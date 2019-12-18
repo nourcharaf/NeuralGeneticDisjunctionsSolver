@@ -9,21 +9,12 @@
 #include "GeneticAlgorithm.hpp"
 
 // Neural Network Parameters
-
-// Random Range
-double randomRange = 10;
-
-// Transfer Function
-Network::TransferFunction transferFunction = Network::hyperbolicTangent;
-
-// Topology
 unsigned numberOfInputs = 3;
 unsigned numberOfOutputs = 1;
-std::vector<unsigned> topology = {numberOfInputs,3,numberOfOutputs};
 
 // Genetic Algorithm Parameters
 unsigned populationSize = 1000;
-unsigned numberOfGenerations = 500;
+unsigned numberOfGenerations = 20;
 double desiredAccuracy = 0.9;
 double elitePercentage = 0.1;
 double survivingPercentage = 0.1;
@@ -64,9 +55,23 @@ Network * GeneticAlgorithm::createNetwork(){
     
     Network *network = new Network();
     
+    // Set Random Range
     network->randomRange = randomRange;
+    
+    // Set Transfer Function
     network->transferFunction = transferFunction;
+    
+    // Set Topology
+    std::vector<unsigned> topology;
+    topology.push_back(numberOfInputs);
+    for (unsigned i = 0; i < numberOfHiddenLayers; ++i){
+        topology.push_back(numberOfHiddenNodes);
+    }
+    topology.push_back(numberOfOutputs);
+    
     network->topology = topology;
+    
+    // Create Layers
     network->createLayers();
     
     return network;
