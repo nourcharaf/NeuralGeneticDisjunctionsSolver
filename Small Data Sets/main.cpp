@@ -10,6 +10,15 @@
 
 int main(){
     
+    // Process Instances
+    
+    // Seed for Random Number Generator
+    srand((int)time(NULL));
+    
+    // Randomize Order of Instances
+    std::default_random_engine randomEngine;
+    std::shuffle(std::begin(originalInstances), std::end(originalInstances), randomEngine);
+    
     // Set Out Own Hyper Parameters
     CrossValidation *crossValidation = new CrossValidation();
     
@@ -23,6 +32,7 @@ int main(){
     double averageAccuracy = crossValidation->averageAccuracy;
     double averageFMeasure = crossValidation->averageFMeasure;
     
+    /*
     // Find Hyper Parameters Using Hyper Genetic Algorithm
     HyperGeneticAlgorithm *hyperGeneticAlgorithm = new HyperGeneticAlgorithm();
     hyperGeneticAlgorithm->createHyperChromosomes();
@@ -31,6 +41,7 @@ int main(){
     CrossValidation *bestCrossValidation = hyperGeneticAlgorithm->bestHyperChromosome->crossValidation;
     double bestAverageAccuracy = bestCrossValidation->averageAccuracy;
     double bestFMeasure = bestCrossValidation->averageFMeasure;
+     */
 }
 
 

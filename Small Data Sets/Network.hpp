@@ -11,8 +11,6 @@
 
 #include <stdio.h>
 
-#include <cmath>
-
 #include "Layer.hpp"
 
 class Network{

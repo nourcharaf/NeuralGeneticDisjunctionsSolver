@@ -11,12 +11,6 @@
 
 #include <stdio.h>
 
-#include <string>
-#include <random>
-#include <iterator>
-#include <iostream>
-#include <sstream>
-
 #include "Chromosome.hpp"
 
 class GeneticAlgorithm{

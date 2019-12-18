@@ -11,6 +11,9 @@
 
 #include <stdio.h>
 
+#include <fstream>
+#include <sstream>
+#include <random>
 #include <vector>
 
 class DataManager{

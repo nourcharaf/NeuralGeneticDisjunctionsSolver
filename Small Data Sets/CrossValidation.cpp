@@ -8,12 +8,6 @@
 
 #include "CrossValidation.hpp"
 
-// Instances
-std::vector<std::vector<double>> originalInstances = DataManager::getInstances("xor_data.txt");
-
-// Cross Validation Parameters
-double crossValidationFolds = 10;
-
 CrossValidation::CrossValidation(){
     
 }
@@ -36,19 +30,6 @@ void CrossValidation::setRandomNumberOfHiddenNodes(){
 }
 
 void CrossValidation::kFoldCrossValidation(){
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    // Instances
-    
-    // Seed for Random Number Generator
-    srand((int)time(NULL));
-    
-    // Randomize Order of Instances
-    std::default_random_engine randomEngine;
-    std::shuffle(std::begin(originalInstances), std::end(originalInstances), randomEngine);
-    
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
     
     std::vector<GeneticAlgorithm *> geneticAlgorithms;
     

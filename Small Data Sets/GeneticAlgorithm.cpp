@@ -8,24 +8,6 @@
 
 #include "GeneticAlgorithm.hpp"
 
-// Neural Network Parameters
-unsigned numberOfInputs = 3;
-unsigned numberOfOutputs = 1;
-
-// Genetic Algorithm Parameters
-unsigned populationSize = 1000;
-unsigned numberOfGenerations = 20;
-double desiredAccuracy = 0.9;
-double elitePercentage = 0.1;
-double survivingPercentage = 0.1;
-double crossoverProbability = 0.5;
-double maxMutationProbability = 1;
-double mutationDecrement = 0.02;
-double probabilityIncrement = 0.01;
-unsigned uniformIntDistributionSize = 1000;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 std::vector<Chromosome *> chromosomes;
 std::vector<Chromosome *> bestChromosomes;
 unsigned elitePopulationSize = unsigned(elitePercentage * populationSize);

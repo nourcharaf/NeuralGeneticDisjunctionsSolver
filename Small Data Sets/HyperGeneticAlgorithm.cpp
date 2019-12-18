@@ -8,20 +8,6 @@
 
 #include "HyperGeneticAlgorithm.hpp"
 
-// Hyper Genetic Algorithm Parameters
-unsigned hyperPopulationSize = 1000;
-unsigned hyperNumberOfGenerations = 20;
-double hyperDesiredAccuracy = 0.9;
-double hyperElitePercentage = 0.1;
-double hyperSurvivingPercentage = 0.1;
-double hyperCrossoverProbability = 0.5;
-double hyperMaxMutationProbability = 1;
-double hyperMutationDecrement = 0.02;
-double hyperProbabilityIncrement = 0.01;
-unsigned hyperUniformIntDistributionSize = 1000;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 std::vector<HyperChromosome *> hyperChromosomes;
 std::vector<HyperChromosome *> bestHyperChromosomes;
 unsigned hyperElitePopulationSize = unsigned(hyperElitePercentage * hyperPopulationSize);
