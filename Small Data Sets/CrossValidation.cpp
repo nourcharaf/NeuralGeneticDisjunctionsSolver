@@ -27,8 +27,6 @@ void CrossValidation::start(){
     // Seed for Random Number Generator
     srand((int)time(NULL));
     
-    DataManager::generateXORData("xor_data.txt", 1000);
-    
     // Randomize Order of Instances
     std::default_random_engine randomEngine;
     std::shuffle(std::begin(originalInstances), std::end(originalInstances), randomEngine);
