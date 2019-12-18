@@ -20,6 +20,8 @@ public:
     std::vector<Edge *> leftEdges;
     std::vector<Edge *> rightEdges;
     double value;
+    
+    Node();
 };
 
 #endif /* Node_hpp */

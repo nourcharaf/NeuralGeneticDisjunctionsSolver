@@ -22,8 +22,6 @@ public:
     double probability;
     
     Chromosome();
-    void setFitnessValue(double fitnessValue);
-    void setProbability(double probability);
 };
 
 #endif /* Chromosome_hpp */

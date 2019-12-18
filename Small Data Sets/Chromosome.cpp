@@ -11,11 +11,3 @@
 Chromosome::Chromosome(){
     
 }
-
-void Chromosome::setFitnessValue(double fitnessValue){
-    this->fitnessValue = fitnessValue;
-}
-
-void Chromosome::setProbability(double probability){
-    this->probability = probability;
-}

@@ -18,6 +18,8 @@ class Layer{
 public:
     
     std::vector<Node *> nodes;
+    
+    Layer();
 };
 
 #endif /* Layer_hpp */

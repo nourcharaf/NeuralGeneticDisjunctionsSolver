@@ -8,49 +8,45 @@
 
 #include "GeneticAlgorithm.hpp"
 
-#include <string>
-#include <random>
-#include <iterator>
+// Neural Network Parameters
 
-#include "DataManager.hpp"
-
-// Parameters
-
+// Instances
 std::vector<std::vector<double>> instances = DataManager::getInstances("xor_data.txt");
+
+// Random Range
+double randomRange = 10;
+
+// Transfer Function
+Network::TransferFunction transferFunction = Network::hyperbolicTangent;
+
+// Topology
 unsigned numberOfOutputs = 1;
 unsigned numberOfInputs = (unsigned)instances[0].size() - numberOfOutputs;
-
-Network::TransferFunction transferFunction = Network::hyperbolicTangent;
 std::vector<unsigned> topology = {numberOfInputs,3,numberOfOutputs};
 
-std::vector<Chromosome *> chromosomes;
-unsigned populationSize = 10000;
-unsigned numberOfGenerations = 20;
+// Genetic Algorithm Parameters
+unsigned populationSize = 1000;
+unsigned numberOfGenerations = 2000;
+double desiredAccuracy = 0.876;
 double elitePercentage = 0.1;
-unsigned elitePopulationSize = unsigned(elitePercentage * populationSize);
-unsigned offspringPopulationSize = populationSize - elitePopulationSize;
 double survivingPercentage = 0.1;
-unsigned survivingPopulationSize = unsigned(survivingPercentage * populationSize);
 double crossoverProbability = 0.5;
-double mutationProbability = 0.1;
-double mutationDecrement = mutationProbability/numberOfGenerations;
-double probabilityIncrement = 0.1;
-
-// Other
-
-std::random_device randomDevice;
-std::mt19937 mt19937(randomDevice());
+double maxMutationProbability = 1;
+double mutationDecrement = 0.02;
+double probabilityIncrement = 0.01;
 unsigned uniformIntDistributionSize = 1000;
 
-template<typename Iter>
-Iter select_randomly(Iter start, Iter end) {
-    
-    std::uniform_int_distribution<int> uniformIntDistribution(0, unsigned(std::distance(start, end)) - 1);
-    
-    std::advance(start, uniformIntDistribution(mt19937));
-    
-    return start;
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+std::vector<Chromosome *> chromosomes;
+std::vector<Chromosome *> bestChromosomes;
+Chromosome *bestChromosome;
+unsigned elitePopulationSize = unsigned(elitePercentage * populationSize);
+unsigned offspringPopulationSize = populationSize - elitePopulationSize;
+unsigned survivingPopulationSize = unsigned(survivingPercentage * populationSize);
+double mutationProbability = maxMutationProbability;
+std::random_device randomDevice;
+std::mt19937 mt19937(randomDevice());
 
 GeneticAlgorithm::GeneticAlgorithm(){
     
@@ -72,8 +68,9 @@ Network * GeneticAlgorithm::createNetwork(){
     
     Network *network = new Network();
     
-    network->setTransferFunction(transferFunction);
-    network->setTopology(topology);
+    network->randomRange = randomRange;
+    network->transferFunction = transferFunction;
+    network->topology = topology;
     network->createLayers();
     
     return network;
@@ -82,11 +79,27 @@ Network * GeneticAlgorithm::createNetwork(){
 void GeneticAlgorithm::processGenerations(){
     
     for (unsigned i = 0; i < numberOfGenerations; ++i){
-        processGeneration();
+        
+        // Process Generation
+        processGeneration(i);
+        
+        // Update Mutation Probability
+        mutationProbability -= mutationDecrement;
+        if (mutationProbability < 0){
+            mutationProbability = maxMutationProbability;
+        }
+        
+        // Check for convergance
+        
+        
+        // Check if met desired Accuracy
+        if (bestChromosome->fitnessValue >= desiredAccuracy){
+            break;
+        }
     }
 }
 
-void GeneticAlgorithm::processGeneration(){
+void GeneticAlgorithm::processGeneration(unsigned generationNumber){
     
     // Fitness: Calculate Population Fitness Values and Probabilities
     calculatePopulationFitnessValuesAndProbabilities();
@@ -111,8 +124,12 @@ void GeneticAlgorithm::processGeneration(){
     chromosomes.insert(chromosomes.end(), eliteChromosomes.begin(), eliteChromosomes.end());
     chromosomes.insert(chromosomes.end(), offspringChromosomes.begin(), offspringChromosomes.end());
     
-    // Decrement Mutation Probability
-    mutationProbability -= mutationDecrement;
+    // Keep track of Best Chromosome
+    bestChromosome = chromosomes[0];
+    bestChromosomes.push_back(bestChromosome);
+    
+    // Log Results of Best Chromosome
+    logResults(generationNumber, bestChromosome);
 }
 
 void GeneticAlgorithm:: calculatePopulationFitnessValuesAndProbabilities(){
@@ -129,7 +146,8 @@ void GeneticAlgorithm:: calculatePopulationFitnessValuesAndProbabilities(){
     for (unsigned i = 0; i < chromosomes.size(); ++i){
         Chromosome *chromosome = chromosomes[i];
         double fitnessValue = chromosome->fitnessValue;
-        chromosome->setProbability(fitnessValue/sumOfFitnessValues);
+        double probability = fitnessValue/sumOfFitnessValues;
+        chromosome->probability = probability;
     }
 }
 
@@ -173,7 +191,7 @@ double GeneticAlgorithm::calculateChromosomeFitness(Chromosome *chromosome){
     
     // Set Fitness: Average Accuracy
     double averageAccuracy = sumOfAccuracies/instances.size();
-    chromosome->setFitnessValue(averageAccuracy);
+    chromosome->fitnessValue = averageAccuracy;
     
     return chromosome->fitnessValue;
 }
@@ -245,17 +263,27 @@ unsigned GeneticAlgorithm::shouldSelect(double probability){
     return threshold >= value;
 }
 
+// This method is used to select randomly from array
+template<typename Iter> Iter selectRandomly(Iter start, Iter end) {
+    
+    std::uniform_int_distribution<int> uniformIntDistribution(0, unsigned(std::distance(start, end)) - 1);
+    
+    std::advance(start, uniformIntDistribution(mt19937));
+    
+    return start;
+}
+
 std::vector<Chromosome *> GeneticAlgorithm::crossover(std::vector<Chromosome *> survivingChromosomes){
     
     std::vector<Chromosome *> offspringChromosomes;
     
     while (1) {
         
-        Chromosome *parent1 = *select_randomly(survivingChromosomes.begin(), survivingChromosomes.end());
+        Chromosome *parent1 = *selectRandomly(survivingChromosomes.begin(), survivingChromosomes.end());
         std::vector<double> weights1 = parent1->network->getEdgeWeights();
         std::vector<double> newWeights1;
         
-        Chromosome *parent2 = *select_randomly(survivingChromosomes.begin(), survivingChromosomes.end());
+        Chromosome *parent2 = *selectRandomly(survivingChromosomes.begin(), survivingChromosomes.end());
         std::vector<double> weights2 = parent2->network->getEdgeWeights();
         std::vector<double> newWeights2;
         
@@ -313,23 +341,49 @@ void GeneticAlgorithm::mutation(std::vector<Chromosome *> offspringChromosomes){
     for (unsigned i = 0; i < offspringChromosomes.size(); ++i){
         
         Chromosome *chromosome = offspringChromosomes[i];
-        std::vector<double> weights = chromosome->network->getEdgeWeights();
+        Network *network = chromosome->network;
+        std::vector<double> weights = network->getEdgeWeights();
         bool didMutate = false;
         
         for (unsigned j = 0; j < weights.size(); ++j){
             
             if (shouldSelect(mutationProbability)){
-                weights[j] = Network::randomWeight();
+                weights[j] = network->randomWeight();
                 didMutate = true;
             }
         }
         
         if (didMutate){
-            chromosome->network->setEdgeWeights(weights);
+            network->setEdgeWeights(weights);
         }
     }
 }
 
+void GeneticAlgorithm::logResults(unsigned generationNumber, Chromosome *chromosome){
+    
+    std::cout << "Generation Number: " + std::to_string(generationNumber) << std::endl;
+    
+    std::cout << "Fitness Value: " + std::to_string(chromosome->fitnessValue) << std::endl;
+    
+    std::cout << "Mutation Probability: " + std::to_string(mutationProbability) << std::endl;
+    
+    std::cout << "Weights: " << std::endl;
+    printArray(chromosome->network->getEdgeWeights());
+    std::cout << std::endl;
+}
+
+void GeneticAlgorithm::printArray(std::vector<double> array){
+    
+    for (unsigned i = 0; i < array.size(); ++i){
+        
+        std::ostringstream strs;
+        strs << array[i];
+        std::string str = strs.str();
+        
+        std::cout << str + ",";
+    }
+}
+
 Chromosome * GeneticAlgorithm::getBestChromosome(){
-    return chromosomes[0];
+    return bestChromosome;
 }

@@ -22,6 +22,8 @@ public:
     Node *leftNode;
     Node *rightNode;
     double weight;
+    
+    Edge();
 };
 
 #endif /* Edge_hpp */

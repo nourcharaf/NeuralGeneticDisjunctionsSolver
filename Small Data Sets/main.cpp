@@ -6,9 +6,6 @@
 //  Copyright © 2019 Apple. All rights reserved.
 //
 
-#include <iostream>
-#include <sstream>
-
 #include "GeneticAlgorithm.hpp"
 
 #include "DataManager.hpp"
@@ -21,18 +18,17 @@ int main() {
     srand((int)time(NULL));
     
     // Genetic Algorithm
-
-//    GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm();
-//    geneticAlgorithm->createChromosomes();
-//    geneticAlgorithm->processGenerations();
-//    Network *bestNetwork = geneticAlgorithm->getBestChromosome()->network;
-//    printArray(bestNetwork->getEdgeWeights());
+    
+    GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm();
+    
+    geneticAlgorithm->createChromosomes();
+    geneticAlgorithm->processGenerations();
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    std::vector<double> bestWeights = {-851.126,-851.126,704.56,-851.126,-851.126,-851.126,542.599,-851.126,704.56,704.56,-851.126,704.56,-851.126,704.56,-877.021,260.225,-851.126,-851.126,-851.126,-851.126,-851.126,-851.126,-851.126,704.56};
+    std::vector<double> bestWeights = {6.78058,-7.84628,-4.94071,-2.49621,6.78058,-2.49621,-4.94071,-7.84628,-7.35246,5.97837,6.78058,6.78058,-1.60836,6.78058,-4.94071,6.78058,6.78058,-4.94071,6.78058,-4.94071,6.78058,-2.49621,6.78058,-4.94071};
     Chromosome *chromosome = new Chromosome();
-    Network *network = GeneticAlgorithm::createNetwork();
+    Network *network = geneticAlgorithm->createNetwork();
     chromosome->network = network;
     network->setEdgeWeights(bestWeights);
     
@@ -65,14 +61,4 @@ int main() {
     return 0;
 }
 
-void printArray(std::vector<double> array){
-    
-    for (unsigned i = 0; i < array.size(); ++i){
-        
-        std::ostringstream strs;
-        strs << array[i];
-        std::string str = strs.str();
-        
-        std::cout << str + ",";
-    }
-}
+

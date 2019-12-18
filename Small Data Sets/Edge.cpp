@@ -7,3 +7,7 @@
 //
 
 #include "Edge.hpp"
+
+Edge::Edge(){
+    
+}

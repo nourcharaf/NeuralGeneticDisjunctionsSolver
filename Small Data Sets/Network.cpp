@@ -12,14 +12,6 @@ Network::Network(){
     
 }
 
-void Network::setTransferFunction(Network::TransferFunction transferFunction){
-    this->transferFunction = transferFunction;
-}
-
-void Network::setTopology(std::vector<unsigned> topology){
-    this->topology = topology;
-}
-
 void Network::createLayers(){
     
     // Empty Layers
@@ -94,7 +86,7 @@ void Network::setRandomEdgeWeights(){
 }
 
 double Network::randomWeight(){
-    return ((rand()/double(RAND_MAX)) * 2000) - 1000; // (rand()/double(RAND_MAX)); ((rand()/double(RAND_MAX)) * 2) - 1;
+    return ((rand()/double(RAND_MAX)) * 2 * randomRange) - randomRange; // (rand()/double(RAND_MAX)); ((rand()/double(RAND_MAX)) * 2) - 1;
 }
 
 void Network::setEdgeWeights(std::vector<double>weights){

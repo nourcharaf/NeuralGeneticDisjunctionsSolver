@@ -24,16 +24,15 @@ public:
         fastSigmoid
     };
     
+    double randomRange;
     TransferFunction transferFunction;
     std::vector<unsigned> topology;
     std::vector<Layer *> layers;
     
     Network();
-    void setTransferFunction(Network::TransferFunction function);
-    void setTopology(std::vector<unsigned> topology);
     void createLayers();
     void setRandomEdgeWeights();
-    static double randomWeight();
+    double randomWeight();
     void setEdgeWeights(std::vector<double>weights);
     std::vector<double> getEdgeWeights();
     void feedForward(std::vector<double> inputValues);
