@@ -61,6 +61,9 @@ Network * GeneticAlgorithm::createNetwork(){
 
 void GeneticAlgorithm::processGenerations(){
     
+    // Set Mutation Probability
+    mutationProbability = maxMutationProbability;
+    
     for (unsigned i = 0; i < numberOfGenerations; ++i){
         
         // Process Generation

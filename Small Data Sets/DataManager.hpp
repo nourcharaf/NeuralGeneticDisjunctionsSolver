@@ -22,7 +22,7 @@ public:
     
     DataManager();
     static std::vector<std::vector<double>> getInstances(std::string fileName);
-    static void generateXORData(std::string fileName,unsigned instances);
+    static void generateXORData(std::string fileName,unsigned instances,unsigned width);
     
 };
 

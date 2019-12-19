@@ -162,17 +162,14 @@ void CrossValidation::reportFinalResults(std::vector<GeneticAlgorithm *> genetic
     std::vector<double> fmeasures;
     double sumeOfFMeasures = 0;
     
+    highestTestAccuracyGeneticAlgorithm = geneticAlgorithms[0];
+    
     for (unsigned i = 0; i < geneticAlgorithms.size(); ++i){
         
         GeneticAlgorithm *geneticAlgorithm = geneticAlgorithms[i];
         
-        double tP = geneticAlgorithm->truePositives;
-        double tN = geneticAlgorithm->trueNegatives;
-        double fP = geneticAlgorithm->falsePositives;
-        double fN = geneticAlgorithm->falseNegatives;
-        
         // Accuracy
-        double accuracy = (tP + tN + fP + fN != 0) ? (tP + tN)/(tP + tN + fP + fN) : 0;
+        double accuracy = getAccuracy(geneticAlgorithm);
         
         accuracies.push_back(accuracy);
         
@@ -184,11 +181,7 @@ void CrossValidation::reportFinalResults(std::vector<GeneticAlgorithm *> genetic
         }
         
         // F-Measure
-        double positivePredictiveValue = (tP + fP != 0) ? tP/(tP + fP) : 0;
-        
-        double sensitivity = (tP + fN != 0) ? tP/(tP + fN) : 0;
-        
-        double fmeasure = (positivePredictiveValue + sensitivity != 0) ? (2 * positivePredictiveValue * sensitivity)/(positivePredictiveValue + sensitivity) : 0;
+        double fmeasure = getFMeasure(geneticAlgorithm);
         
         fmeasures.push_back(fmeasure);
         
@@ -221,4 +214,32 @@ void CrossValidation::printArray(std::vector<double> array){
         
         std::cout << str + ",";
     }
+}
+
+double CrossValidation::getAccuracy(GeneticAlgorithm *geneticAlgorithm){
+    
+    double tP = geneticAlgorithm->truePositives;
+    double tN = geneticAlgorithm->trueNegatives;
+    double fP = geneticAlgorithm->falsePositives;
+    double fN = geneticAlgorithm->falseNegatives;
+    
+    // Accuracy
+    double accuracy = (tP + tN + fP + fN != 0) ? (tP + tN)/(tP + tN + fP + fN) : 0;
+    return accuracy;
+}
+
+double CrossValidation::getFMeasure(GeneticAlgorithm *geneticAlgorithm){
+    
+    double tP = geneticAlgorithm->truePositives;
+    double tN = geneticAlgorithm->trueNegatives;
+    double fP = geneticAlgorithm->falsePositives;
+    double fN = geneticAlgorithm->falseNegatives;
+    
+    double positivePredictiveValue = (tP + fP != 0) ? tP/(tP + fP) : 0;
+    
+    double sensitivity = (tP + fN != 0) ? tP/(tP + fN) : 0;
+    
+    // F-Measure
+    double fmeasure = (positivePredictiveValue + sensitivity != 0) ? (2 * positivePredictiveValue * sensitivity)/(positivePredictiveValue + sensitivity) : 0;
+    return fmeasure;
 }

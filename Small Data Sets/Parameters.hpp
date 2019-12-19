@@ -22,27 +22,27 @@
 #include "DataManager.hpp"
 
 // Instances: xor_training.txt, xor_validation.txt, set2_training.txt, set2_validation.txt
-static std::vector<std::vector<double>> seenInstances = DataManager::getInstances("xor_training.txt");
-static std::vector<std::vector<double>> unseenInstances = DataManager::getInstances("xor_validation.txt");
+static std::vector<std::vector<double>> seenInstances = DataManager::getInstances("set2_training.txt");
+static std::vector<std::vector<double>> unseenInstances = DataManager::getInstances("set2_validation.txt");
 
 // Neural Network Parameters
-static unsigned numberOfInputs = 3;
+static unsigned numberOfInputs = int(seenInstances[0].size()) - 1;
 static unsigned numberOfOutputs = 1;
 
 // Genetic Algorithm Parameters
-static unsigned populationSize = 1000;
-static unsigned numberOfGenerations = 20;
-static double desiredAccuracy = 0.9;
+static unsigned populationSize = 300;
+static unsigned numberOfGenerations = 10;
+static double desiredAccuracy = 0.75;
 static double elitePercentage = 0.1;
 static double survivingPercentage = 0.1;
 static double crossoverProbability = 0.5;
-static double maxMutationProbability = 1;
+static double maxMutationProbability = 0.5;
 static double mutationDecrement = 0.02;
-static double probabilityIncrement = 0.01;
+static double probabilityIncrement = 0.1;
 static unsigned uniformIntDistributionSize = 1000;
 
 // Cross Validation Parameters
-static double crossValidationFolds = 2;
+static double crossValidationFolds = 10;
 
 // Hyper Genetic Algorithm Parameters
 static unsigned hyperPopulationSize = 1000;

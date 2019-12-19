@@ -12,7 +12,7 @@
 unsigned bestRandomRange = 10;
 unsigned bestTransferFunction = Network::hyperbolicTangent;
 unsigned bestNumberOfHiddenLayers = 1;
-unsigned bestNumberOfHiddenNodes = 3;
+unsigned bestNumberOfHiddenNodes = 5;
 
 int main(){
     
@@ -27,7 +27,7 @@ int main(){
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // Note: This part can be commented out so that hyper parameters remain fixed
-    
+    /*
     // Find Hyper Parameters Using Hyper Genetic Algorithm
     HyperGeneticAlgorithm *hyperGeneticAlgorithm = new HyperGeneticAlgorithm();
     hyperGeneticAlgorithm->createHyperChromosomes();
@@ -39,7 +39,7 @@ int main(){
     bestTransferFunction = bestCrossValidation->transferFunction;
     bestNumberOfHiddenLayers = bestCrossValidation->numberOfHiddenLayers;
     bestNumberOfHiddenNodes = bestCrossValidation->numberOfHiddenNodes;
-    
+    */
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // Cross Validation with Hyper Parameters
@@ -50,23 +50,22 @@ int main(){
     crossValidation->numberOfHiddenLayers = bestNumberOfHiddenLayers;
     crossValidation->numberOfHiddenNodes = bestNumberOfHiddenNodes;
     
-    crossValidation->kFoldCrossValidation();
-    
-    // Report Average Test Accuracy and Average Test F-Measure
-    double averageTestAccuracy = crossValidation->averageTestAccuracy;
-    double averageTestFMeasure = crossValidation->averageTestFMeasure;
-    
-    std::cout << "Average Test Accuracy: " + std::to_string(averageTestAccuracy) << std::endl;
-    std::cout << "Average Test F-Measure: " + std::to_string(averageTestFMeasure) << std::endl;
+    crossValidation->kFoldCrossValidation(); // This also reports Average Test Accuracy and Average Test F-Measure
     
     // Test Unseen Data
-    crossValidation->testWithInstances(crossValidation->highestTestAccuracyGeneticAlgorithm, unseenInstances);
+    GeneticAlgorithm *highestTestAccuracyGeneticAlgorithm = crossValidation->highestTestAccuracyGeneticAlgorithm;
+    crossValidation->testWithInstances(highestTestAccuracyGeneticAlgorithm, unseenInstances);
     
     // Report Average Unseen Test Accuracy and Average Unseen Test F-Measure
-    double averageUnseenTestAccuracy = crossValidation->averageTestAccuracy;
-    double averageUnseenTestFMeasure = crossValidation->averageTestFMeasure;
+    double averageUnseenTestAccuracy = crossValidation->getAccuracy(highestTestAccuracyGeneticAlgorithm);
+    double averageUnseenTestFMeasure = crossValidation->getFMeasure(highestTestAccuracyGeneticAlgorithm);
     
     std::cout << "Average Unseen Test Accuracy: " + std::to_string(averageUnseenTestAccuracy) << std::endl;
     std::cout << "Average Unseen Test F-Measure: " + std::to_string(averageUnseenTestFMeasure) << std::endl;
+    
+    std::cout << "Unseen True Positives: " + std::to_string(highestTestAccuracyGeneticAlgorithm->truePositives) << std::endl;
+    std::cout << "Unseen True Negatives: " + std::to_string(highestTestAccuracyGeneticAlgorithm->trueNegatives) << std::endl;
+    std::cout << "Unseen False Positives: " + std::to_string(highestTestAccuracyGeneticAlgorithm->falsePositives) << std::endl;
+    std::cout << "Unseen False Negatives: " + std::to_string(highestTestAccuracyGeneticAlgorithm->falseNegatives) << std::endl;
 }
 

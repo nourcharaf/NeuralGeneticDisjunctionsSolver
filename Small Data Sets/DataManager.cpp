@@ -36,20 +36,27 @@ std::vector<std::vector<double>> DataManager::getInstances(std::string fileName)
     return instances;
 }
 
-void DataManager::generateXORData(std::string fileName,unsigned instances){
+void DataManager::generateXORData(std::string fileName,unsigned instances,unsigned width){
     
     std::ofstream file(fileName);
     
     for (unsigned i = 0; i < instances; ++i){
         
-        int x1 = rand()/double(RAND_MAX) + 0.5;
-        int x2 = rand()/double(RAND_MAX) + 0.5;
-        int x3 = rand()/double(RAND_MAX) + 0.5;
+        std::string output = "";
+        unsigned result = 0;
         
-        int output = x1 != x2;
-        output = output != x3;
+        for (unsigned j = 0; j < width; ++j){
+            
+            int x = rand()/double(RAND_MAX) + 0.5;
+            
+            output = output + std::to_string(x) + ",";
+            
+            result = j == 0 ? x : result != x;
+        }
         
-        file << std::to_string(x1) + "," + std::to_string(x2) + "," + std::to_string(x3) + "," + std::to_string(output) + "\n";
+        output = output + std::to_string(result);
+        
+        file << output + "\n";
     }
     
     file.close();

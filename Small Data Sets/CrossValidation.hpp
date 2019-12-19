@@ -38,6 +38,8 @@ public:
     void testWithInstances(GeneticAlgorithm *geneticAlgorithm, std::vector<std::vector<double>> instances);
     void reportFinalResults(std::vector<GeneticAlgorithm *> geneticAlgorithms);
     void printArray(std::vector<double> array);
+    double getAccuracy(GeneticAlgorithm *geneticAlgorithm);
+    double getFMeasure(GeneticAlgorithm *geneticAlgorithm);
 };
 
 #endif /* CrossValidation_hpp */
