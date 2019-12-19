@@ -33,7 +33,7 @@ void CrossValidation::kFoldCrossValidation(){
     
     std::vector<GeneticAlgorithm *> geneticAlgorithms;
     
-    unsigned instancesSize = (int)originalInstances.size();
+    unsigned instancesSize = (int)seenInstances.size();
     unsigned numberOfTestInstances = instancesSize / crossValidationFolds;
     
     for (unsigned i = 0; i < crossValidationFolds; ++i){
@@ -49,18 +49,18 @@ void CrossValidation::kFoldCrossValidation(){
         std::vector<std::vector<double>> trainingInstances;
         
         for (unsigned j = 0; j < startTestIndex; ++j){
-            trainingInstances.push_back(originalInstances[j]);
+            trainingInstances.push_back(seenInstances[j]);
         }
         
         for (unsigned j = endTestIndex + 1; j < instancesSize; ++j){
-            trainingInstances.push_back(originalInstances[j]);
+            trainingInstances.push_back(seenInstances[j]);
         }
         
         // Testing Instances
         std::vector<std::vector<double>> testingInstances;
         
         for (unsigned j = startTestIndex; j <= endTestIndex; ++j){
-            testingInstances.push_back(originalInstances[j]);
+            testingInstances.push_back(seenInstances[j]);
         }
         
         // Genetic Algorithm

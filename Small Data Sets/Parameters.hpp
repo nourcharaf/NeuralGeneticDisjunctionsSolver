@@ -21,8 +21,9 @@
 
 #include "DataManager.hpp"
 
-// Instances
-static std::vector<std::vector<double>> originalInstances = DataManager::getInstances("xor_data.txt");
+// Instances: xor_data.txt, set2_training.txt, set2_validation.txt
+static std::vector<std::vector<double>> seenInstances = DataManager::getInstances("xor_data.txt");
+static std::vector<std::vector<double>> unseenInstances = DataManager::getInstances("xor_data.txt");
 
 // Neural Network Parameters
 static unsigned numberOfInputs = 3;

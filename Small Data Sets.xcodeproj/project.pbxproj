@@ -44,7 +44,6 @@
 		0238865123A7DEE500ACE9C9 /* Edge.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Edge.hpp; sourceTree = "<group>"; };
 		0238865323A7DF0B00ACE9C9 /* Network.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Network.cpp; sourceTree = "<group>"; };
 		0238865423A7DF0B00ACE9C9 /* Network.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Network.hpp; sourceTree = "<group>"; };
-		0238865623A7DF3400ACE9C9 /* xor_data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = xor_data.txt; sourceTree = "<group>"; };
 		0238865A23A7EFF900ACE9C9 /* Chromosome.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Chromosome.cpp; sourceTree = "<group>"; };
 		0238865B23A7EFF900ACE9C9 /* Chromosome.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Chromosome.hpp; sourceTree = "<group>"; };
 		0238865D23A7F1DD00ACE9C9 /* GeneticAlgorithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GeneticAlgorithm.cpp; sourceTree = "<group>"; };
@@ -59,6 +58,9 @@
 		0269C2EF23AA6BDD000D7DA0 /* HyperChromosome.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HyperChromosome.hpp; sourceTree = "<group>"; };
 		0269C2F223AA9494000D7DA0 /* Parameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Parameters.hpp; sourceTree = "<group>"; };
 		0269C2F723AA96FB000D7DA0 /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parameters.cpp; sourceTree = "<group>"; };
+		02AEE99923AB76120090F08A /* set2_training.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = set2_training.txt; sourceTree = "<group>"; };
+		02AEE99A23AB76120090F08A /* set2_validation.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = set2_validation.txt; sourceTree = "<group>"; };
+		02AEE99B23AB76230090F08A /* xor_data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = xor_data.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +116,9 @@
 				0238864B23A7DE9B00ACE9C9 /* Node.hpp */,
 				0238866023A8CCF500ACE9C9 /* DataManager.cpp */,
 				0238866123A8CCF500ACE9C9 /* DataManager.hpp */,
-				0238865623A7DF3400ACE9C9 /* xor_data.txt */,
+				02AEE99B23AB76230090F08A /* xor_data.txt */,
+				02AEE99923AB76120090F08A /* set2_training.txt */,
+				02AEE99A23AB76120090F08A /* set2_validation.txt */,
 			);
 			path = "Small Data Sets";
 			sourceTree = "<group>";
