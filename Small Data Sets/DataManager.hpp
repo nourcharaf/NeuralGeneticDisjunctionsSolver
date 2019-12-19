@@ -21,8 +21,8 @@ class DataManager{
 public:
     
     DataManager();
-    static void generateXORData(std::string fileName,unsigned instances);
     static std::vector<std::vector<double>> getInstances(std::string fileName);
+    static void generateXORData(std::string fileName,unsigned instances);
     
 };
 

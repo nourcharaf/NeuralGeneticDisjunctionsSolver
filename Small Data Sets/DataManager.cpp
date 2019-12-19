@@ -12,25 +12,6 @@ DataManager::DataManager(){
     
 }
 
-void DataManager::generateXORData(std::string fileName,unsigned instances){
-    
-    std::ofstream file(fileName);
-    
-    for (unsigned i = 0; i < instances; ++i){
-        
-        int x1 = rand()/double(RAND_MAX) + 0.5;
-        int x2 = rand()/double(RAND_MAX) + 0.5;
-        int x3 = rand()/double(RAND_MAX) + 0.5;
-        
-        int output = x1 != x2;
-        output = output != x3;
-        
-        file << std::to_string(x1) + "," + std::to_string(x2) + "," + std::to_string(x3) + "," + std::to_string(output) + "\n";
-    }
-    
-    file.close();
-}
-
 std::vector<std::vector<double>> DataManager::getInstances(std::string fileName){
     
     std::vector<std::vector<double>> instances;
@@ -53,4 +34,23 @@ std::vector<std::vector<double>> DataManager::getInstances(std::string fileName)
     }
     
     return instances;
+}
+
+void DataManager::generateXORData(std::string fileName,unsigned instances){
+    
+    std::ofstream file(fileName);
+    
+    for (unsigned i = 0; i < instances; ++i){
+        
+        int x1 = rand()/double(RAND_MAX) + 0.5;
+        int x2 = rand()/double(RAND_MAX) + 0.5;
+        int x3 = rand()/double(RAND_MAX) + 0.5;
+        
+        int output = x1 != x2;
+        output = output != x3;
+        
+        file << std::to_string(x1) + "," + std::to_string(x2) + "," + std::to_string(x3) + "," + std::to_string(output) + "\n";
+    }
+    
+    file.close();
 }
