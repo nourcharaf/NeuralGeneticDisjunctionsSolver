@@ -24,8 +24,9 @@ public:
     unsigned numberOfHiddenLayers;
     unsigned numberOfHiddenNodes;
     
-    double averageAccuracy;
-    double averageFMeasure;
+    double averageTestAccuracy;
+    double averageTestFMeasure;
+    GeneticAlgorithm *highestTestAccuracyGeneticAlgorithm;
     
     CrossValidation();
     void setRandomRandomRange();

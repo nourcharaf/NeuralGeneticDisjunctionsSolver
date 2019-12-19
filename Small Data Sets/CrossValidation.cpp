@@ -178,6 +178,11 @@ void CrossValidation::reportFinalResults(std::vector<GeneticAlgorithm *> genetic
         
         sumOfAccuracies += accuracy;
         
+        // Save Genetic Algorithm with Highest Test Accuracy
+        if (accuracy > highestTestAccuracyGeneticAlgorithm->testAccuracy){
+            highestTestAccuracyGeneticAlgorithm = geneticAlgorithm;
+        }
+        
         // F-Measure
         double positivePredictiveValue = (tP + fP != 0) ? tP/(tP + fP) : 0;
         
@@ -195,15 +200,15 @@ void CrossValidation::reportFinalResults(std::vector<GeneticAlgorithm *> genetic
     printArray(accuracies);
     std::cout << std::endl;
     
-    averageAccuracy = sumOfAccuracies/crossValidationFolds;
-    std::cout << "Average Accuracy: " + std::to_string(averageAccuracy) << std::endl;
+    averageTestAccuracy = sumOfAccuracies/crossValidationFolds;
+    std::cout << "Average Test Accuracy: " + std::to_string(averageTestAccuracy) << std::endl;
     
     std::cout << "F-Measures: " << std::endl;
     printArray(fmeasures);
     std::cout << std::endl;
     
-    averageFMeasure = sumeOfFMeasures/crossValidationFolds;
-    std::cout << "Max F-Measure: " + std::to_string(averageFMeasure) << std::endl;
+    averageTestFMeasure = sumeOfFMeasures/crossValidationFolds;
+    std::cout << "Average Test F-Measure: " + std::to_string(averageTestFMeasure) << std::endl;
 }
 
 void CrossValidation::printArray(std::vector<double> array){

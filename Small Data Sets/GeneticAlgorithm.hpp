@@ -17,16 +17,18 @@ class GeneticAlgorithm{
     
 public:
     
+    // Stored Results: Accuracy of Best Chromosome (Neural Network)
+    unsigned truePositives;
+    unsigned trueNegatives;
+    unsigned falsePositives;
+    unsigned falseNegatives;
+    unsigned testAccuracy;
+    
     // Hyper Parameters for Neural Networks
     unsigned randomRange;
     unsigned transferFunction;
     unsigned numberOfHiddenLayers;
     unsigned numberOfHiddenNodes;
-    
-    unsigned truePositives;
-    unsigned trueNegatives;
-    unsigned falsePositives;
-    unsigned falseNegatives;
     
     std::vector<std::vector<double>> instances;
     Chromosome *bestChromosome;

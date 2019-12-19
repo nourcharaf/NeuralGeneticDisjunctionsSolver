@@ -118,9 +118,9 @@ double HyperGeneticAlgorithm::calculateChromosomeFitness(HyperChromosome *hyperC
     CrossValidation *crossValidation = hyperChromosome->crossValidation;
     crossValidation->kFoldCrossValidation();
     
-    double averageAccuracy = crossValidation->averageAccuracy;
+    double averageTestAccuracy = crossValidation->averageTestAccuracy;
     
-    hyperChromosome->fitnessValue = averageAccuracy;
+    hyperChromosome->fitnessValue = averageTestAccuracy;
     
     return hyperChromosome->fitnessValue;
 }
@@ -309,7 +309,13 @@ void HyperGeneticAlgorithm::logResults(unsigned generationNumber, HyperChromosom
     
     std::cout << "Mutation Probability: " + std::to_string(hyperMutationProbability) << std::endl;
     
-    std::cout << "Average Accuracy: " + std::to_string(hyperChromosome->crossValidation->averageAccuracy) << std::endl;
+    std::cout << "Random Range: " + std::to_string(hyperChromosome->crossValidation->randomRange) << std::endl;
+    
+    std::cout << "Transfer Function: " + std::to_string(hyperChromosome->crossValidation->transferFunction) << std::endl;
+    
+    std::cout << "Number of Hidden Layers: " + std::to_string(hyperChromosome->crossValidation->numberOfHiddenLayers) << std::endl;
+    
+    std::cout << "Number of Hidden Nodes: " + std::to_string(hyperChromosome->crossValidation->numberOfHiddenNodes) << std::endl;
 }
 
 void HyperGeneticAlgorithm::printArray(std::vector<double> array){
