@@ -7,6 +7,7 @@
 //
 
 #include "Network.hpp"
+#include "assert.h"
 
 Network::Network(){
     
